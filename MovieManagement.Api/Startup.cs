@@ -26,15 +26,24 @@ namespace MovieManagement.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            options.AddPolicy(name: "MyAllowSpecificOrigins",
+            builder =>
+            {
+                builder.WithOrigins("https://localhost:44330/");
+            }));
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { 
-                    Title = "MovieManagement.Api", 
-                    Version = "v1"                     
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "MovieManagement.Api",
+                    Version = "v1"
                 });
             });
+
+            services.AddHealthChecks();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,10 +56,11 @@ namespace MovieManagement.Api
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MovieManagement.Api v1"));
             }
 
+            app.UseHealthChecks("/hc");
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseCors();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

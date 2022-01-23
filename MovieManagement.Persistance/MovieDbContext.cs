@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MovieManagement.Domain.Common;
+using MovieManagement.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,16 @@ namespace MovieManagement.Persistance
         public MovieDbContext(DbContextOptions<MovieDbContext> options) : base(options)
         {
 
+        }
+
+        public DbSet<Director> Directors { get; set; }
+        public DbSet<Movie> Movies { get; set; }
+        public DbSet<DirectorBiography> DirectorBiographies { get; set; }
+        public DbSet<Genre> Genres { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Director>().OwnsOne(p => p.DirectorName);
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())

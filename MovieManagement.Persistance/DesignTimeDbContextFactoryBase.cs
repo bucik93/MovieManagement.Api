@@ -48,7 +48,7 @@ namespace MovieManagement.Persistance
             if (string.IsNullOrWhiteSpace(connstr))
             {
                 throw new InvalidOperationException(
-                    "Could not find a connection string named 'Default'.");
+                    "Could not find a connection string named 'MovieDatabase'.");
             }
             return Create(connstr);
         }

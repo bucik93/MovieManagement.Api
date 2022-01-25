@@ -23,7 +23,7 @@ namespace MovieManagement.Aplication.Directors.Queries.GetDirectorDetail
         }
         public async Task<DirectorDetailVm> Handle(GetDirectorDetailQuery request, CancellationToken cancellationToken)
         {
-            var director = await _context.Directors.Where(p => p.Id == request.DirectorId).FirstOrDefaultAsync(cancellationToken);
+            var director = await _context.Directors.Include(p=>p.Movies).Where(p => p.Id == request.DirectorId).FirstOrDefaultAsync(cancellationToken);
             var directorVm = _mapper.Map<DirectorDetailVm>(director);
             return directorVm;
         }

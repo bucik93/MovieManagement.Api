@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MovieManagement.Aplication.Common.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace MovieManagement.Persistance
         public static IServiceCollection AddPersistance(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<MovieDbContext>(options=> options.UseSqlServer(configuration.GetConnectionString("MovieDatabase")));
-            
+            services.AddScoped<IMovieDbContext, MovieDbContext>();
             return services;
         }
     }

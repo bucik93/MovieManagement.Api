@@ -10,6 +10,6 @@ namespace MovieManagement.Domain.Entities
     public class Genre : AuditableEntity
     {
         public string Name { get; set; }
-        public List<Movie> Movies { get; private set; } = new List<Movie>();
+        public ICollection<Movie> Movies { get;  set; } 
     }
 }

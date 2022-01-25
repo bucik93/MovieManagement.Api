@@ -13,7 +13,7 @@ namespace MovieManagement.Domain.Entities
         public int PremiereYear { get; set; }
         public int DirectorId { get; set; }
         public Director Director { get; set; }
-        public List<Genre> Genres { get; private set; } = new List<Genre>();
+        public ICollection<Genre> Genres { get;  set; }
 
 
     }

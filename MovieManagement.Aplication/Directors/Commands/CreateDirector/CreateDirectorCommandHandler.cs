@@ -26,6 +26,7 @@ namespace MovieManagement.Aplication.Directors.Commands.CreateDirector
             };
 
             _context.Directors.Add(director);
+            await _context.SaveChangesAsync(cancellationToken);
 
             DirectorBiography directorBiography = new()
             {

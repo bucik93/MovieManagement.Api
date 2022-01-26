@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MovieManagement.Aplication.Directors.Commands.CreateDirector;
 using MovieManagement.Aplication.Directors.Queries.GetDirectorDetail;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,13 @@ namespace MovieManagement.Api.Controllers
         {
             var vm = await Mediator.Send(new GetDirectorDetailQuery() { DirectorId = id });
             return vm;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateDirector(CreateDirectorCommand command)
+        {
+            var result = await Mediator.Send(command);
+            return Ok(result);
         }
     }
 }

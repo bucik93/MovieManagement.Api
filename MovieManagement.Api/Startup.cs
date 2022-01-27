@@ -10,6 +10,7 @@ using Microsoft.OpenApi.Models;
 using MovieManagement.Aplication;
 using MovieManagement.Infrastructure;
 using MovieManagement.Persistance;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -64,7 +65,7 @@ namespace MovieManagement.Api
 
             app.UseHealthChecks("/hc");
             app.UseHttpsRedirection();
-
+            app.UseSerilogRequestLogging();
             app.UseRouting();
             app.UseCors();
             app.UseAuthorization();
